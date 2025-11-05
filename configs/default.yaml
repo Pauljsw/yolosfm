@@ -7,6 +7,14 @@ paths:
   calib_depth: calib/depth_camera_info.json
   out_dir: outputs
 
+yolo:
+  weights: models/best.pt   # Path to YOLO segmentation weights
+  conf: 0.25                # Confidence threshold
+  iou: 0.45                 # NMS IoU threshold
+  img_size: 1024            # Inference image size
+  device: null              # e.g. "0" for GPU, null for auto
+  max_det: 300              # Maximum detections per image
+
 sfm:
   camera_model: OPENCV      # PINHOLE, OPENCV, RADIAL, SIMPLE_RADIAL
   quality: high             # low, medium, high, extreme
