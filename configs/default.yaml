@@ -7,6 +7,15 @@ paths:
   calib_depth: calib/depth_camera_info.json
   out_dir: outputs
 
+yolo:
+  weights: models/best.pt   # Path to YOLO segmentation weights
+  data_config: configs/yolo_data.yaml
+  conf: 0.25                # Confidence threshold
+  iou: 0.45                 # NMS IoU threshold
+  img_size: 1024            # Inference image size
+  device: null              # e.g. "0" for GPU, null for auto
+  max_det: 300              # Maximum detections per image
+
 sfm:
   camera_model: OPENCV      # PINHOLE, OPENCV, RADIAL, SIMPLE_RADIAL
   quality: high             # low, medium, high, extreme
@@ -55,14 +64,22 @@ measure:
 
 classes:
   crack: 0
-  spalling: 1
-  efflorescence: 2
-  exposed_rebar: 3
-  background: 4
+  efflorescence: 1
+  detachment: 2
+  leak: 3
+  spalling: 4
+  material separation: 5
+  rebar: 6
+  damage: 7
+  exhilaration: 8
 
 colors:
   crack: [255, 0, 0]
-  spalling: [0, 255, 0]
-  efflorescence: [0, 0, 255]
-  exposed_rebar: [255, 255, 0]
-  background: [128, 128, 128]
+  efflorescence: [0, 255, 0]
+  detachment: [0, 0, 255]
+  leak: [255, 255, 0]
+  spalling: [255, 0, 255]
+  material separation: [0, 255, 255]
+  rebar: [255, 128, 0]
+  damage: [128, 0, 255]
+  exhilaration: [0, 128, 255]
