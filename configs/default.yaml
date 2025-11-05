@@ -1,0 +1,68 @@
+paths:
+  rgb_dir: data/rgb
+  depth_dir: data/depth
+  masks_dir: data/yolo_masks
+  sfm_dir: data/sfm
+  calib_rgb: calib/rgb_camera_info.json
+  calib_depth: calib/depth_camera_info.json
+  out_dir: outputs
+
+sfm:
+  camera_model: OPENCV      # PINHOLE, OPENCV, RADIAL, SIMPLE_RADIAL
+  quality: high             # low, medium, high, extreme
+  use_gpu: true
+  dense: false              # Run dense reconstruction (slow)
+
+align:
+  in_depth_unit: "m"        # or "mm"
+  hole_fill: true
+  joint_bilateral: true
+  bilateral_d: 9
+  bilateral_sigma_color: 75
+  bilateral_sigma_space: 75
+
+fusion:
+  voxel_size_cm: 1.0        # coarse
+  voxel_size_mm_crack: 3.0  # fine for crack ROI
+  prob_thresh: 0.55
+  weight:
+    angle_cos_min: 0.3
+    conf_min: 0.2
+    distance_decay_sigma: 2.0  # meters
+
+merge:
+  dbscan_eps_voxel_mul: 3.0
+  dbscan_min_pts: 10
+  iou_merge_thresh: 0.3
+  skeleton_gap_thresh_cm: 2.0
+
+reinfer:
+  mode: auto   # off | on | auto
+  tile_px: 1024
+  tile_overlap: 0.1
+  uv_resolution_mm_px: 2.0
+  triggers:
+    gap_cm: 8.0
+    conflict_rate: 0.15
+    mean_conf: 0.45
+    scale_std_ratio: 0.2
+
+measure:
+  crack_skeleton_smooth: true
+  crack_min_length_cm: 5.0
+  area_min_m2: 0.001
+  export_formats: ["ply", "geojson", "csv"]
+
+classes:
+  crack: 0
+  spalling: 1
+  efflorescence: 2
+  exposed_rebar: 3
+  background: 4
+
+colors:
+  crack: [255, 0, 0]
+  spalling: [0, 255, 0]
+  efflorescence: [0, 0, 255]
+  exposed_rebar: [255, 255, 0]
+  background: [128, 128, 128]
